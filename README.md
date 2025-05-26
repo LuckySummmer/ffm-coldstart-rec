@@ -29,5 +29,6 @@ ffm-coldstart-rec/
 ├── config/
 │   └── params_flickr.txt   # 模型超参数配置文件
 └── README.md
+```
 
 ## 数据预处理
