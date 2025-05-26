@@ -25,7 +25,7 @@ def main():
                                  'delicious_user_1', 'lastfm_user_1',
                                  'delicious_user_2', 'lastfm_user_2'],
                         help='dataname to be run')
-    parser.add_argument('-i', '--input', type=str, default='../dataset2',
+    parser.add_argument('-i', '--input', type=str, default='../data/processed',
                         help='Input directory containing ffm format data')
     parser.add_argument('-m', '--model', type=str, default='../model2',
                         help='Path to save models')
