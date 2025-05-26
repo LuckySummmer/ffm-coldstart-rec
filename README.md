@@ -21,4 +21,4 @@ ffm-coldstart-rec/
 │   ├── results_tune/
 │   └── results_run/
 ├── config/
-│   ├── params.json
+│   └── params_flickr.txt
