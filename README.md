@@ -32,3 +32,6 @@ ffm-coldstart-rec/
 ```
 
 ## 数据预处理
+```plaintext
+python -m src.data_preprocessing -d flickr
+```
