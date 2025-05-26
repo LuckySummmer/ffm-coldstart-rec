@@ -13,3 +13,6 @@ ffm-coldstart-rec/
 ├── utils/
 │   ├── eval_metrics.py
 │   ├── ffm_format_data2.py
+├── results/
+│   ├── models/
+│   ├── outputs/
