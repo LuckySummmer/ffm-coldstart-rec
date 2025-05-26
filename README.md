@@ -1,13 +1,13 @@
-# ffm-coldstart-rec
-25高软项目
+## 项目结构
 
+```plaintext
 ffm-coldstart-rec/
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/                # 原始数据
+│   └── processed/          # 预处理后数据
 ├── src/
-│   ├── external/        # 第三方库源码
+│   ├── external/           # 第三方库（如libffm）
 │   ├── data_preprocessing.py
 │   ├── train.py
 │   ├── evaluate.py
-│   └── run.py
+│   └── run.py              # 项目统一运行入口
