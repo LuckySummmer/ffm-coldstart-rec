@@ -28,7 +28,7 @@ def main():
                         help='Path to directory of the test ffm format data (To get labels)')
     parser.add_argument('-p', '--predict', type=str, default='../results/outputs',
                         help='Path to directory of the output of predict_ffm (To get predictions)')
-    parser.add_argument('-r', '--result', type=str, default='../results/results_run',
+    parser.add_argument('-r', '--result', type=str, default='../results/results_tune',
                         help='Path to directory of the result save file')
     parser.add_argument('-c', '--config', type=str, default='../config',
                         help='Path to hyperparameter configuration file')

@@ -8,14 +8,17 @@ ffm-coldstart-rec/
 ├── src/
 │   ├── external/           # 第三方库（如libffm）
 │   ├── data_preprocessing.py
+│   ├── run.py
 │   ├── evaluate_tune.py
-│   ├── evaluate_run.py
-│   └── run.py              # 项目统一运行入口
+│   └── evaluate_run.py
 ├── utils/
 │   ├── eval_metrics.py
-│   └── ffm_format_data2.py
+│   ├── ffm_format_data2.py
+│   └── ffm_result_cal2.py
 ├── results/
 │   ├── models/
-│   └── outputs/
+│   ├── outputs/
+│   ├── results_tune/
+│   └── results_run/
 ├── config/
 │   ├── params.json
