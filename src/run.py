@@ -27,14 +27,14 @@ def main():
                         help='dataname to be run')
     parser.add_argument('-i', '--input', type=str, default='../data/processed',
                         help='Input directory containing ffm format data')
-    parser.add_argument('-m', '--model', type=str, default='../model2',
+    parser.add_argument('-m', '--model', type=str, default='../results/models',
                         help='Path to save models')
-    parser.add_argument('-o', '--output', type=str, default='../output2',
+    parser.add_argument('-o', '--output', type=str, default='../results/outputs',
                         help='Path to save outputs')
-    parser.add_argument('-c', '--config', type=str, default='../params',
+    parser.add_argument('-c', '--config', type=str, default='../config',
                         help='Path to hyperparameter configuration file')
     parser.add_argument('-t', '--trials', action='store_true',
-                        help='run 10 trials')
+                        help='preprocess data of 10 trials')
     # 补充 加验证集的选项
     parser.add_argument('-v', '--validation', action='store_true',
                         help='Whether to use a validation set while training')
@@ -51,11 +51,11 @@ def main():
 
     if not osp.exists(model_dir):
         os.mkdir(model_dir)
-        print(f"创建{model_dir}完成")
+        print(f"Make dir {model_dir} Done")
 
     if not osp.exists(output_dir):
         os.mkdir(output_dir)
-        print(f"创建{output_dir}完成")
+        print(f"Make dir {output_dir} Done")
 
 
     
@@ -67,67 +67,62 @@ def main():
         print(f"训练过程中将采用auto_stop来避免过拟合")
 
 
-    config_path = f'{args.config}/params_{dataname}.txt'
+    config_path = f'{args.config}/params_{dataname}.txt'        # ../config/params_flickr.txt
     config = load_config(config_path)
-    k_values = list(map(int, config['k_values'].split(',')))    # [4, 8, 12, 16]
+    k_values = list(map(int, config['k_values'].split(',')))    # [1, 2, 4, 8, 12, 16]
     r_values = list(map(float, config['r_values'].split(',')))  # [0.01, 0.05, 0.1]
     l_values = list(map(float, config['l_values'].split(',')))  # [1e-05, 2e-05, 5e-05, 0.0001]
-    data_sets = config['data_sets'].split(',')                  # ['delicious_user']
+    data_sets = config['data_sets'].split(',')                  # ['flickr']
     assert data_sets[0] == dataname
 
     if args.trials:
         trials = list(range(1, 10))     # 从第二个trial开始跑，减少重复跑浪费时间
-        print("Run 10 trials.")
+        print("RUN 10 trials.")
         
+        # 以下是调参结果选出最好的一组参数
         if dataname == "delicious_user":
-            # 参数组合1 - 1
+            # 参数组合1 - Done
             # k_values = [16]
             # r_values = [0.1]
             # l_values = [5e-05]
-
-            # 参数组合2 - 1
+            # 参数组合2 - Done
             # k_values = [16]
             # r_values = [0.05]
             # l_values = [1e-05]
-
             # 参数组合3 - 0
             k_values = [16]
             r_values = [0.05]
             l_values = [5e-05]
+        
         elif dataname == 'epinion':
-            # 参数组合1 - 1 - 623
+            # 参数组合1 - Done - 623
             # k_values = [16]
             # r_values = [0.05]
             # l_values = [1e-05]
-
-            # 参数组合2 - 1 - pazhou
+            # 参数组合2 - Done - pazhou
             k_values = [8]
             r_values = [0.1]
             l_values = [1e-05]
 
         elif dataname == "blog":
-            # 参数组合1 - 1 - 623
+            # 参数组合1 - Done - 623
             k_values = [4]
             r_values = [0.01]
             l_values = [2e-05]
-
-            # 参数组合2 - 1 - pazhou
+            # 参数组合2 - Done - pazhou
             # k_values = [1]
             # r_values = [0.01]
             # l_values = [5e-05]
-
 
         elif dataname == "lastfm_user":
             # 参数组合1
             # k_values = [16]
             # r_values = [0.1]
             # l_values = [5e-05]
-
             # 参数组合2
             # k_values = [8]
             # r_values = [0.01]
             # l_values = [1e-05]
-
             # 参数组合3
             k_values = [4]
             r_values = [0.01]
@@ -138,15 +133,11 @@ def main():
             # k_values = [4]
             # r_values = [0.01]
             # l_values = [2e-05]
-
             # 参数组合2 - 0 - 623 and pazhou
             k_values = [1]
             r_values = [0.01]
             l_values = [1e-05]
-
-            trials = list(range(1, 5))  # [1,2,3,4] 另外 pazhou [5,6,7,8,9]
-
-
+            # trials = list(range(1, 5))  # [1,2,3,4] 另外 pazhou [5,6,7,8,9]
 
         elif dataname == "lastfm_user_2":
             k_values = [12]
@@ -155,7 +146,7 @@ def main():
 
     else:
         trials = [0]
-        print("Tune the first trial.")
+        print("TUNE the first trial.")
 
 
     for trial in trials:
