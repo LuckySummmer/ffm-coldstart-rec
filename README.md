@@ -21,11 +21,6 @@ ffm-coldstart-rec/
 │   ├── eval_metrics.py     # 推荐评估指标实现
 │   ├── ffm_format_data2.py # 数据转换成 .ffm 格式
 │   └── ffm_result_cal2.py  # 模型结果计算工具
-├── results/
-│   ├── models/             # 存放训练模型
-│   ├── outputs/            # 存放预测结果
-│   ├── results_tune/       # 调参结果
-│   └── results_run/        # 运行结果
 ├── config/
 │   └── params_flickr.txt   # 模型超参数配置文件
 └── README.md
