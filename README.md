@@ -31,6 +31,14 @@ ffm-coldstart-rec/
 python -m src.data_preprocessing -d flickr -t
 ```
 
+## 编译ffm模型
+参考FFM的开源代码：https://github.com/ycjuan/libffm
+```plaintext
+cd src/external/libffm
+make
+```
+
+
 ## 运行
 ```plaintext
 python -m src.run -d flickr -t
