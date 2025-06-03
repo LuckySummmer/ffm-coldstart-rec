@@ -4,6 +4,7 @@ import os.path as osp
 import subprocess
 from pathlib import Path
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 def load_config(config_path):
     """从配置文件加载超参数"""
@@ -67,7 +68,7 @@ def main():
         print(f"训练过程中将采用auto_stop来避免过拟合")
 
 
-    config_path = f'{args.config}/params_{dataname}.txt'        # ../config/params_flickr.txt
+    config_path = os.path.join(PROJECT_ROOT, f'{args.config}/params_{dataname}.txt')
     config = load_config(config_path)
     k_values = list(map(int, config['k_values'].split(',')))    # [1, 2, 4, 8, 12, 16]
     r_values = list(map(float, config['r_values'].split(',')))  # [0.01, 0.05, 0.1]
@@ -153,19 +154,16 @@ def main():
         for k in k_values:
             for r in r_values:
                 for l in l_values:
-                    model_file = f'{model_dir}/model_{dataname}_k{k}_r{r}_l{l}_{trial}.ffm'
-
-                    train_file = f'{input_dir}/{dataname}_train_{trial}.ffm'
-                    test_file = f'{input_dir}/{dataname}_test_{trial}.ffm'
-                    output_file = f'{output_dir}/output_{dataname}_k{k}_r{r}_l{l}_{trial}.txt'
-
+                    model_file = os.path.join(PROJECT_ROOT, f'{model_dir}/model_{dataname}_k{k}_r{r}_l{l}_{trial}.ffm')
+                    train_file = os.path.join(PROJECT_ROOT, f'{input_dir}/{dataname}_train_{trial}.ffm')
+                    test_file = os.path.join(PROJECT_ROOT, f'{input_dir}/{dataname}_test_{trial}.ffm')
+                    output_file = os.path.join(PROJECT_ROOT, f'{output_dir}/output_{dataname}_k{k}_r{r}_l{l}_{trial}.txt')
                     print("------------------------training------------------------")
 
                     # train
-
                     if args.validation and args.auto_stop:
                         cmd_train = [
-                            '../libffm/ffm-train',
+                            './external/libffm/ffm-train',
                             '-k', str(k),
                             '-r', str(r),
                             '-l', str(l),
@@ -177,7 +175,7 @@ def main():
                         print(f"Training {dataname} with k={k}, r={r}, l={l}, with validation set and auto-stop strategy.")
                     elif args.validation and not args.auto_stop:
                         cmd_train = [
-                            '../libffm/ffm-train',
+                            './external/libffm/ffm-train',
                             '-k', str(k),
                             '-r', str(r),
                             '-l', str(l),
@@ -188,7 +186,7 @@ def main():
                         print(f"Training {dataname} with k={k}, r={r}, l={l}, with validation set.")
                     else:
                         cmd_train = [
-                            '../libffm/ffm-train',
+                            './external/libffm/ffm-train',
                             '-k', str(k),
                             '-r', str(r),
                             '-l', str(l),
@@ -227,7 +225,7 @@ def main():
                     
                     # predict
                     cmd_test = [
-                        '../libffm/ffm-predict',
+                        './external/libffm/ffm-predict',
                         str(test_file),
                         str(model_file),
                         str(output_file)

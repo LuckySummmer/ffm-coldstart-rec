@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'u
 # use user_side and user_item
 import utils.ffm_format_data2 as ffm_utils
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
     output_dir = f'{args.output}/{dataname}'
 
     if not osp.exists(output_dir):
-        os.mkdir(output_dir)
+        os.makedirs(output_dir, exist_ok=True)
         print(f"Make dir {output_dir} Done!")
     
     if args.trials:
@@ -41,18 +42,19 @@ def main():
         print("TUNE the first trial.")
         
     
-    mat_file = f'{input_dir}/{dataname}.mat'                                        # ../data/raw/flickr/flickr.mat
-    output_feature_dict_file = f'{output_dir}/{dataname}_all_feature_dict.csv'      # ../data/processed/flickr/flickr_all_feature_dict.csv
+    mat_file = os.path.join(PROJECT_ROOT, 'data', 'raw', f'{dataname}', f'{dataname}.mat')
+    output_feature_dict_file = os.path.join(PROJECT_ROOT, 'data', 'processed', f'{dataname}', f'{dataname}_all_feature_dict.csv')
 
     feature_dict = ffm_utils.construct_feature_dict(mat_file)
     ffm_utils.save_dict_to_csv(feature_dict, output_feature_dict_file)
 
     for trial in trials:
-        output_train_file = f'{output_dir}/{dataname}_train_{trial}.ffm'            # ../data/processed/flickr/flickr_train_0.ffm
-        output_test_file = f'{output_dir}/{dataname}_test_{trial}.ffm'              # ../data/processed/flickr/flickr_test_0.ffm
 
-        output_train_feature_dict_file = f'{output_dir}/{dataname}_train_feature_dict_{trial}.csv'      # ../data/processed/flickr/flickr_train_feature_dict_0.ffm
-        output_test_feature_dict_file = f'{output_dir}/{dataname}_test_feature_dict_{trial}.csv'        # ../data/processed/flickr/flickr_test_feature_dict_0.ffm
+        output_train_file = os.path.join(PROJECT_ROOT, 'data', 'processed', f'{dataname}', f'{dataname}_train_{trial}.ffm')
+        output_test_file = os.path.join(PROJECT_ROOT, 'data', 'processed', f'{dataname}', f'{dataname}_test_{trial}.ffm')
+
+        output_train_feature_dict_file = os.path.join(PROJECT_ROOT, 'data', 'processed', f'{dataname}', f'{dataname}_train_feature_dict_{trial}.csv')
+        output_test_feature_dict_file = os.path.join(PROJECT_ROOT, 'data', 'processed', f'{dataname}', f'{dataname}_test_feature_dict_{trial}.csv')
 
         train_feature_dict, test_feature_dict = ffm_utils.split_train_test_according_to_key(mat_file, feature_dict, trial)
         ffm_utils.save_dict_to_csv(train_feature_dict, output_train_feature_dict_file)
