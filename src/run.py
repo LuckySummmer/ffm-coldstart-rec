@@ -190,15 +190,7 @@ def main():
                             '-k', str(k),
                             '-r', str(r),
                             '-l', str(l),
-                            # '-t', str(10),        # for tuning epinion and blog less
-                            # '-s', str(8),         # 提高运行效率 for flickr
-                            # '-s', str(2),         # 提高运行效率 for lastfm_user run 10 trials 
-                            # '-s', str(3),
-                            # '-s', str(5),         # for blog and flickr run 10
-                            # '-s', str(5),         # for time datasets: delicious_user_1 and lastfm_user_1
-                            # '-s', str(5),         # for topN datasets: delciious_user_2 and lastfm_user_2
-                            '-s', str(10),          # for tuning epinion and runing epinion
-                            # '-s', str(8),         # for tuning and runing epinion
+                            '-s', str(10),
                             str(train_file),
                             str(model_file)
                         ]

@@ -9,7 +9,7 @@
 ```plaintext
 ffm-coldstart-rec/
 ├── data/
-│   ├── raw/                # 原始数据（未加入版本控制）
+│   ├── raw/                # 原始数据
 │   └── processed/          # 预处理后的数据（未加入版本控制）
 ├── src/
 │   ├── external/           # 第三方库（如 libffm 的源码）
@@ -22,10 +22,10 @@ ffm-coldstart-rec/
 │   ├── ffm_format_data2.py # 数据转换成 .ffm 格式
 │   └── ffm_result_cal2.py  # 模型结果计算工具
 ├── results/
-│   ├── models/
-│   ├── outputs/
-│   ├── results_tune/
-│   └── results_run/
+│   ├── models/             # 存放训练模型
+│   ├── outputs/            # 存放预测结果
+│   ├── results_tune/       # 调参结果
+│   └── results_run/        # 运行结果
 ├── config/
 │   └── params_flickr.txt   # 模型超参数配置文件
 └── README.md
@@ -40,3 +40,8 @@ python -m src.data_preprocessing -d flickr -t
 ```plaintext
 python -m src.run -d flickr -t
 ```
+
+## 数据集
+- Blog: http://www.blogcatalog.com
+- Flickr: http://www.flickr.com
+- Delicious and Lastfm: https://grouplens.org/datasets/hetrec-2011/
