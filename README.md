@@ -38,10 +38,14 @@ cd src/external/libffm
 make
 ```
 
-
 ## 运行
 ```plaintext
 python -m src.run -d flickr -t
+```
+
+## evaluate
+```plaintext
+python -m src.evaluate_run.py -d flickr -t
 ```
 
 ## 数据集
